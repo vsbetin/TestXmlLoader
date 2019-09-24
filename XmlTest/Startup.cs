@@ -32,7 +32,10 @@ namespace XmlTest
 		{
 			services
 				.AddDbContext<AppDbContext>(options =>
-					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")))
+                {
+                    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+                    options.EnableSensitiveDataLogging();
+                })
 				.AddTransient<XmlImportRepo>()
 				.AddTransient<ExportRepo>()
 				.AddAutoMapper(Assembly.GetExecutingAssembly())
